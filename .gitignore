@@ -37,3 +37,6 @@ playground.xcworkspace
 # Environment / local config
 .env
 .env.*
+
+# Build output
+build/
