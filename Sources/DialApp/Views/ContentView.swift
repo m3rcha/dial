@@ -23,7 +23,7 @@ struct ContentView: View {
                 } label: {
                     Label("Import Code", systemImage: "square.and.arrow.down")
                 }
-                .help("Import a dial:v1: setup code from clipboard (⌘V)")
+                .help("Import a dial:v1: setup code from clipboard (⇧⌘V)")
 
                 Button {
                     appState.exportMyMacToPasteboard()
@@ -34,17 +34,33 @@ struct ContentView: View {
             }
         }
         .overlay(alignment: .bottom) {
-            if let toast = appState.toastMessage {
-                Text(toast)
-                    .font(.subheadline)
-                    .padding(.horizontal, 16)
-                    .padding(.vertical, 10)
-                    .adaptiveCapsuleSurface()
-                    .padding(.bottom, 16)
-                    .transition(.move(edge: .bottom).combined(with: .opacity))
+            AdaptiveGlassContainer {
+                VStack(spacing: 8) {
+                    if !appState.pendingServices.isEmpty {
+                        RestartCapsuleView(appState: appState)
+                            .transition(.move(edge: .bottom).combined(with: .opacity))
+                    }
+
+                    if let toast = appState.toastMessage {
+                        Text(toast)
+                            .font(.subheadline)
+                            .padding(.horizontal, 16)
+                            .padding(.vertical, 10)
+                            .adaptiveCapsuleSurface()
+                            .transition(.move(edge: .bottom).combined(with: .opacity))
+                    }
+                }
+                .padding(.bottom, 16)
             }
         }
         .animation(.snappy, value: appState.toastMessage)
+        .animation(.snappy, value: appState.pendingServices.isEmpty)
+        .sheet(item: Binding(
+            get: { appState.activeImportPreview.map { PreviewWrapper(preview: $0) } },
+            set: { if $0 == nil { appState.activeImportPreview = nil } }
+        )) { wrapper in
+            SetupImportSheet(preview: wrapper.preview, appState: appState)
+        }
         .alert(
             "Could Not Import Setup Code",
             isPresented: Binding(
@@ -68,15 +84,17 @@ struct ContentView: View {
             case .category, .modified:
                 TweakListView(section: current, appState: appState)
             case .profiles:
-                Text("Profiles")
-                    .navigationTitle("Profiles")
+                ProfilesView(appState: appState)
             case .snapshots:
-                Text("Snapshots")
-                    .navigationTitle("Snapshots")
+                SnapshotsView(appState: appState)
             case .community:
-                Text("Community")
-                    .navigationTitle("Community")
+                CommunityView(appState: appState)
             }
         }
     }
+}
+
+private struct PreviewWrapper: Identifiable {
+    let id = UUID()
+    let preview: ImportPreview
 }
