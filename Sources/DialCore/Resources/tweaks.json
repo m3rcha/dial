@@ -859,24 +859,24 @@
         "onValue": true
       }
     ],
-    "restartServices": ["SystemUIServer"]
+    "restartServices": ["ControlCenter"]
   },
   {
     "id": "menubar.clock-24h",
     "name": "Use 24-Hour Menu Bar Clock",
     "description": "Format the menu bar clock in 24-hour time.",
     "category": "Menu Bar & Desktop",
-    "keywords": ["menubar", "clock", "Show24Hour", "24h"],
+    "keywords": ["menubar", "clock", "AppleICUForce24HourTime", "24h"],
     "riskLevel": "safe",
     "operations": [
       {
-        "domain": "com.apple.menuextra.clock",
-        "key": "Show24Hour",
+        "domain": "NSGlobalDomain",
+        "key": "AppleICUForce24HourTime",
         "valueType": "bool",
         "onValue": true
       }
     ],
-    "restartServices": ["SystemUIServer"]
+    "restartServices": ["ControlCenter"]
   },
   {
     "id": "desktop.hide-all-icons",
@@ -1002,20 +1002,21 @@
     "restartServices": ["Finder"]
   },
   {
-    "id": "animations.reduce-motion",
-    "name": "Reduce System Motion",
-    "description": "Replace sliding Space transitions and parallax motion with subtle crossfades.",
+    "id": "animations.mission-control-speed",
+    "name": "Instant Mission Control Animation",
+    "description": "Remove the zoom delay when opening Mission Control or Exposé.",
     "category": "Animations & Performance",
-    "keywords": ["animations", "reduceMotion", "accessibility", "spaces"],
-    "riskLevel": "moderate",
+    "keywords": ["animations", "expose-animation-duration", "mission control", "dock"],
+    "riskLevel": "safe",
     "operations": [
       {
-        "domain": "com.apple.universalaccess",
-        "key": "reduceMotion",
-        "valueType": "bool",
-        "onValue": true
+        "domain": "com.apple.dock",
+        "key": "expose-animation-duration",
+        "valueType": "double",
+        "onValue": 0.0
       }
-    ]
+    ],
+    "restartServices": ["Dock"]
   },
 
   {

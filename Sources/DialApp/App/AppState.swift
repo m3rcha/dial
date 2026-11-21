@@ -64,6 +64,11 @@ final class AppState {
     var communityErrorMessage: String?
 
     // MARK: - Settings
+    var autoRestartServices: Bool {
+        didSet {
+            UserDefaults.standard.set(autoRestartServices, forKey: "dial.autoRestartServices")
+        }
+    }
     var showMenuBarExtra: Bool {
         didSet {
             UserDefaults.standard.set(showMenuBarExtra, forKey: "dial.showMenuBarExtra")
@@ -104,6 +109,11 @@ final class AppState {
             .appendingPathComponent("Dial", isDirectory: true)
             .appendingPathComponent("profiles.json")
 
+        if UserDefaults.standard.object(forKey: "dial.autoRestartServices") == nil {
+            self.autoRestartServices = true
+        } else {
+            self.autoRestartServices = UserDefaults.standard.bool(forKey: "dial.autoRestartServices")
+        }
         self.showMenuBarExtra = UserDefaults.standard.bool(forKey: "dial.showMenuBarExtra")
         self.communityFeedURL = UserDefaults.standard.string(forKey: "dial.communityFeedURL")
             ?? CommunityFeedClient.defaultFeedURLString
@@ -194,7 +204,7 @@ final class AppState {
                 catalog: allTweaks,
                 snapshotTitle: "\(enabled ? "Enable" : "Disable") \(tweak.name)"
             )
-            pendingServices.formUnion(services)
+            handleAffectedServices(services)
             snapshots = await engine.snapshots.allSnapshots()
             refreshLiveState()
         } catch {
@@ -214,7 +224,7 @@ final class AppState {
                 catalog: allTweaks,
                 snapshotTitle: "Update \(tweak.name)"
             )
-            pendingServices.formUnion(services)
+            handleAffectedServices(services)
             snapshots = await engine.snapshots.allSnapshots()
             refreshLiveState()
         } catch {
@@ -225,7 +235,7 @@ final class AppState {
     func resetToStock(_ tweak: Tweak) async {
         do {
             let services = try await engine.resetToStock(tweak: tweak)
-            pendingServices.formUnion(services)
+            handleAffectedServices(services)
             snapshots = await engine.snapshots.allSnapshots()
             refreshLiveState()
         } catch {
@@ -285,7 +295,7 @@ final class AppState {
                 catalog: allTweaks,
                 snapshotTitle: "Import: \(setupName)"
             )
-            pendingServices.formUnion(services)
+            handleAffectedServices(services)
             snapshots = await engine.snapshots.allSnapshots()
             refreshLiveState()
             activeImportPreview = nil
@@ -302,7 +312,7 @@ final class AppState {
                 catalog: allTweaks,
                 snapshotTitle: "Profile: \(profile.name)"
             )
-            pendingServices.formUnion(services)
+            handleAffectedServices(services)
             snapshots = await engine.snapshots.allSnapshots()
             refreshLiveState()
             showToast("Activated \"\(profile.name)\" profile.")
@@ -337,12 +347,23 @@ final class AppState {
     func revertSnapshot(_ entry: SnapshotEntry) async {
         do {
             let services = try await engine.revertSnapshot(id: entry.id)
-            pendingServices.formUnion(services)
+            handleAffectedServices(services)
             snapshots = await engine.snapshots.allSnapshots()
             refreshLiveState()
             showToast("Reverted \"\(entry.title)\".")
         } catch {
             showToast(error.localizedDescription)
+        }
+    }
+
+    private func handleAffectedServices(_ services: Set<AllowlistedService>) {
+        guard !services.isEmpty else { return }
+        pendingServices.formUnion(services)
+        if autoRestartServices {
+            Task { @MainActor in
+                try? await Task.sleep(for: .milliseconds(350))
+                await restartPendingServices()
+            }
         }
     }
 

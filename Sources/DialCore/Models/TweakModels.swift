@@ -71,6 +71,7 @@ public enum AllowlistedService: String, Codable, Hashable, Sendable, CaseIterabl
     case dock = "Dock"
     case finder = "Finder"
     case systemUIServer = "SystemUIServer"
+    case controlCenter = "ControlCenter"
     case windowManager = "WindowManager"
     case cfprefsd = "cfprefsd"
 

@@ -79,6 +79,9 @@ public struct CFPreferencesStore: PreferencesStore {
             if CFGetTypeID(raw) == CFBooleanGetTypeID(), let boolVal = raw as? Bool {
                 return .bool(boolVal)
             }
+            if let number = raw as? NSNumber {
+                return .bool(number.intValue != 0)
+            }
             return nil
         case .int:
             if CFGetTypeID(raw) != CFBooleanGetTypeID(), let number = raw as? NSNumber {

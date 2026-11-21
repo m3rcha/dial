@@ -158,6 +158,15 @@ struct TweakRowView: View {
                     .font(.subheadline.monospacedDigit())
                     .foregroundStyle(.secondary)
                     .frame(minWidth: 52, alignment: .trailing)
+
+                Button("Apply") {
+                    let latest = appState.parameterValues[tweak.id]?[param.id] ?? .double(doubleValue)
+                    Task {
+                        await appState.updateParameter(for: tweak, parameterID: param.id, value: latest)
+                    }
+                }
+                .buttonStyle(.bordered)
+                .controlSize(.small)
             }
 
         case .stepper(let minVal, let maxVal, let step, let unit):
