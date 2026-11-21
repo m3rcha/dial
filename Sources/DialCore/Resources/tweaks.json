@@ -1,0 +1,1114 @@
+[
+  {
+    "id": "dock.autohide",
+    "name": "Auto-Hide Dock",
+    "description": "Automatically hide the Dock when not in use.",
+    "category": "Dock",
+    "keywords": ["dock", "autohide", "hide"],
+    "riskLevel": "safe",
+    "operations": [
+      {
+        "domain": "com.apple.dock",
+        "key": "autohide",
+        "valueType": "bool",
+        "onValue": true
+      }
+    ],
+    "restartServices": ["Dock"]
+  },
+  {
+    "id": "dock.autohide-delay",
+    "name": "Dock Auto-Hide Delay",
+    "description": "Delay in seconds before the hidden Dock appears on hover.",
+    "category": "Dock",
+    "keywords": ["dock", "autohide-delay", "delay", "instant"],
+    "riskLevel": "safe",
+    "parameters": [
+      {
+        "id": "delay",
+        "label": "Delay",
+        "control": { "kind": "slider", "min": 0.0, "max": 2.0, "step": 0.05, "unit": "s" },
+        "defaultValue": 0.0
+      }
+    ],
+    "operations": [
+      {
+        "domain": "com.apple.dock",
+        "key": "autohide-delay",
+        "valueType": "double",
+        "onValue": 0.0,
+        "parameterID": "delay"
+      }
+    ],
+    "requires": [{ "tweakID": "dock.autohide", "expectedValue": true }],
+    "restartServices": ["Dock"]
+  },
+  {
+    "id": "dock.autohide-speed",
+    "name": "Dock Slide Animation Speed",
+    "description": "Duration of the Dock show/hide slide animation.",
+    "category": "Dock",
+    "keywords": ["dock", "autohide-time-modifier", "animation", "speed"],
+    "riskLevel": "safe",
+    "parameters": [
+      {
+        "id": "duration",
+        "label": "Duration",
+        "control": { "kind": "slider", "min": 0.0, "max": 1.5, "step": 0.05, "unit": "s" },
+        "defaultValue": 0.15
+      }
+    ],
+    "operations": [
+      {
+        "domain": "com.apple.dock",
+        "key": "autohide-time-modifier",
+        "valueType": "double",
+        "onValue": 0.15,
+        "parameterID": "duration"
+      }
+    ],
+    "requires": [{ "tweakID": "dock.autohide", "expectedValue": true }],
+    "restartServices": ["Dock"]
+  },
+  {
+    "id": "dock.hide-recents",
+    "name": "Hide Recent Apps in Dock",
+    "description": "Remove the Recent Applications section from the Dock.",
+    "category": "Dock",
+    "keywords": ["dock", "show-recents", "recent"],
+    "riskLevel": "safe",
+    "operations": [
+      {
+        "domain": "com.apple.dock",
+        "key": "show-recents",
+        "valueType": "bool",
+        "onValue": false,
+        "offValue": true
+      }
+    ],
+    "restartServices": ["Dock"]
+  },
+  {
+    "id": "dock.minimize-to-app",
+    "name": "Minimize Windows into App Icon",
+    "description": "Collapse minimized windows into their application icon instead of adding thumbnails.",
+    "category": "Dock",
+    "keywords": ["dock", "minimize-to-application", "minimize"],
+    "riskLevel": "safe",
+    "operations": [
+      {
+        "domain": "com.apple.dock",
+        "key": "minimize-to-application",
+        "valueType": "bool",
+        "onValue": true
+      }
+    ],
+    "restartServices": ["Dock"]
+  },
+  {
+    "id": "dock.minimize-effect",
+    "name": "Dock Minimize Effect",
+    "description": "Choose between Scale and Genie animations when minimizing windows.",
+    "category": "Dock",
+    "keywords": ["dock", "mineffect", "scale", "genie"],
+    "riskLevel": "safe",
+    "parameters": [
+      {
+        "id": "effect",
+        "label": "Effect",
+        "control": {
+          "kind": "picker",
+          "options": [
+            { "label": "Scale", "value": "scale" },
+            { "label": "Genie", "value": "genie" },
+            { "label": "Suck", "value": "suck" }
+          ]
+        },
+        "defaultValue": "scale"
+      }
+    ],
+    "operations": [
+      {
+        "domain": "com.apple.dock",
+        "key": "mineffect",
+        "valueType": "string",
+        "onValue": "scale",
+        "parameterID": "effect"
+      }
+    ],
+    "restartServices": ["Dock"]
+  },
+  {
+    "id": "dock.static-only",
+    "name": "Show Only Running Apps in Dock",
+    "description": "Hide pinned non-running apps so the Dock only shows active applications.",
+    "category": "Dock",
+    "keywords": ["dock", "static-only", "running"],
+    "riskLevel": "moderate",
+    "operations": [
+      {
+        "domain": "com.apple.dock",
+        "key": "static-only",
+        "valueType": "bool",
+        "onValue": true
+      }
+    ],
+    "restartServices": ["Dock"]
+  },
+  {
+    "id": "dock.single-app",
+    "name": "Single-App Mode",
+    "description": "Automatically hide other applications when switching to an app via the Dock.",
+    "category": "Dock",
+    "keywords": ["dock", "single-app", "focus"],
+    "riskLevel": "moderate",
+    "operations": [
+      {
+        "domain": "com.apple.dock",
+        "key": "single-app",
+        "valueType": "bool",
+        "onValue": true
+      }
+    ],
+    "restartServices": ["Dock"]
+  },
+  {
+    "id": "dock.icon-size",
+    "name": "Dock Icon Size",
+    "description": "Set the exact pixel size of Dock icons.",
+    "category": "Dock",
+    "keywords": ["dock", "tilesize", "size"],
+    "riskLevel": "safe",
+    "parameters": [
+      {
+        "id": "size",
+        "label": "Size",
+        "control": { "kind": "slider", "min": 24, "max": 96, "step": 2, "unit": "px" },
+        "defaultValue": 48
+      }
+    ],
+    "operations": [
+      {
+        "domain": "com.apple.dock",
+        "key": "tilesize",
+        "valueType": "int",
+        "onValue": 48,
+        "parameterID": "size"
+      }
+    ],
+    "restartServices": ["Dock"]
+  },
+  {
+    "id": "dock.position",
+    "name": "Dock Screen Position",
+    "description": "Place the Dock on the bottom, left, or right edge of the screen.",
+    "category": "Dock",
+    "keywords": ["dock", "orientation", "position", "left", "right"],
+    "riskLevel": "safe",
+    "parameters": [
+      {
+        "id": "edge",
+        "label": "Position",
+        "control": {
+          "kind": "picker",
+          "options": [
+            { "label": "Bottom", "value": "bottom" },
+            { "label": "Left", "value": "left" },
+            { "label": "Right", "value": "right" }
+          ]
+        },
+        "defaultValue": "left"
+      }
+    ],
+    "operations": [
+      {
+        "domain": "com.apple.dock",
+        "key": "orientation",
+        "valueType": "string",
+        "onValue": "left",
+        "offValue": "bottom",
+        "parameterID": "edge"
+      }
+    ],
+    "restartServices": ["Dock"]
+  },
+
+  {
+    "id": "finder.show-hidden-files",
+    "name": "Show Hidden Files",
+    "description": "Reveal dotfiles and hidden system files in Finder.",
+    "category": "Finder",
+    "keywords": ["finder", "AppleShowAllFiles", "hidden", "dotfiles"],
+    "riskLevel": "safe",
+    "operations": [
+      {
+        "domain": "com.apple.finder",
+        "key": "AppleShowAllFiles",
+        "valueType": "bool",
+        "onValue": true
+      }
+    ],
+    "restartServices": ["Finder"]
+  },
+  {
+    "id": "finder.show-extensions",
+    "name": "Show All File Extensions",
+    "description": "Always display file extensions across Finder and Open/Save panels.",
+    "category": "Finder",
+    "keywords": ["finder", "AppleShowAllExtensions", "extensions"],
+    "riskLevel": "safe",
+    "operations": [
+      {
+        "domain": "NSGlobalDomain",
+        "key": "AppleShowAllExtensions",
+        "valueType": "bool",
+        "onValue": true
+      }
+    ],
+    "restartServices": ["Finder"]
+  },
+  {
+    "id": "finder.show-path-bar",
+    "name": "Show Finder Path Bar",
+    "description": "Display the breadcrumb path bar at the bottom of Finder windows.",
+    "category": "Finder",
+    "keywords": ["finder", "ShowPathbar", "path"],
+    "riskLevel": "safe",
+    "operations": [
+      {
+        "domain": "com.apple.finder",
+        "key": "ShowPathbar",
+        "valueType": "bool",
+        "onValue": true
+      }
+    ],
+    "restartServices": ["Finder"]
+  },
+  {
+    "id": "finder.show-status-bar",
+    "name": "Show Finder Status Bar",
+    "description": "Show item count and available disk space at the bottom of Finder.",
+    "category": "Finder",
+    "keywords": ["finder", "ShowStatusBar", "status"],
+    "riskLevel": "safe",
+    "operations": [
+      {
+        "domain": "com.apple.finder",
+        "key": "ShowStatusBar",
+        "valueType": "bool",
+        "onValue": true
+      }
+    ],
+    "restartServices": ["Finder"]
+  },
+  {
+    "id": "finder.folders-on-top",
+    "name": "Keep Folders on Top",
+    "description": "Sort folders before files when sorting by name in Finder.",
+    "category": "Finder",
+    "keywords": ["finder", "_FXSortFoldersFirst", "folders", "sort"],
+    "riskLevel": "safe",
+    "operations": [
+      {
+        "domain": "com.apple.finder",
+        "key": "_FXSortFoldersFirst",
+        "valueType": "bool",
+        "onValue": true
+      }
+    ],
+    "restartServices": ["Finder"]
+  },
+  {
+    "id": "finder.disable-extension-warning",
+    "name": "Disable Extension Change Warning",
+    "description": "Skip confirmation dialog when renaming a file's extension.",
+    "category": "Finder",
+    "keywords": ["finder", "FXEnableExtensionChangeWarning", "warning"],
+    "riskLevel": "safe",
+    "operations": [
+      {
+        "domain": "com.apple.finder",
+        "key": "FXEnableExtensionChangeWarning",
+        "valueType": "bool",
+        "onValue": false,
+        "offValue": true
+      }
+    ],
+    "restartServices": ["Finder"]
+  },
+  {
+    "id": "finder.search-current-folder",
+    "name": "Search Current Folder by Default",
+    "description": "Scope Finder searches to the current folder instead of This Mac.",
+    "category": "Finder",
+    "keywords": ["finder", "FXDefaultSearchScope", "search"],
+    "riskLevel": "safe",
+    "operations": [
+      {
+        "domain": "com.apple.finder",
+        "key": "FXDefaultSearchScope",
+        "valueType": "string",
+        "onValue": "SCcf"
+      }
+    ],
+    "restartServices": ["Finder"]
+  },
+  {
+    "id": "finder.quit-menu-item",
+    "name": "Allow Quitting Finder",
+    "description": "Add a Quit Finder option (⌘Q) to the Finder menu.",
+    "category": "Finder",
+    "keywords": ["finder", "QuitMenuItem", "quit"],
+    "riskLevel": "moderate",
+    "operations": [
+      {
+        "domain": "com.apple.finder",
+        "key": "QuitMenuItem",
+        "valueType": "bool",
+        "onValue": true
+      }
+    ],
+    "restartServices": ["Finder"]
+  },
+  {
+    "id": "finder.no-dsstore-network",
+    "name": "Avoid .DS_Store on Network Volumes",
+    "description": "Prevent Finder from creating .DS_Store files on SMB/NFS shares.",
+    "category": "Finder",
+    "keywords": ["finder", "DSDontWriteNetworkStores", "ds_store", "network"],
+    "riskLevel": "safe",
+    "operations": [
+      {
+        "domain": "com.apple.desktopservices",
+        "key": "DSDontWriteNetworkStores",
+        "valueType": "bool",
+        "onValue": true
+      }
+    ]
+  },
+  {
+    "id": "finder.no-dsstore-usb",
+    "name": "Avoid .DS_Store on USB Drives",
+    "description": "Prevent Finder from creating .DS_Store files on removable USB drives.",
+    "category": "Finder",
+    "keywords": ["finder", "DSDontWriteUSBStores", "ds_store", "usb"],
+    "riskLevel": "safe",
+    "operations": [
+      {
+        "domain": "com.apple.desktopservices",
+        "key": "DSDontWriteUSBStores",
+        "valueType": "bool",
+        "onValue": true
+      }
+    ]
+  },
+
+  {
+    "id": "window.drag-on-gesture",
+    "name": "Drag Windows Anywhere (⌃⌘ + Click)",
+    "description": "Move any window by holding Control+Command and dragging anywhere inside it.",
+    "category": "Window & Mission Control",
+    "keywords": ["window", "NSWindowShouldDragOnGesture", "drag", "gesture"],
+    "riskLevel": "safe",
+    "operations": [
+      {
+        "domain": "NSGlobalDomain",
+        "key": "NSWindowShouldDragOnGesture",
+        "valueType": "bool",
+        "onValue": true
+      }
+    ]
+  },
+  {
+    "id": "window.disable-mru-spaces",
+    "name": "Stop Auto-Rearranging Spaces",
+    "description": "Keep Spaces in a fixed order instead of sorting by most recent use.",
+    "category": "Window & Mission Control",
+    "keywords": ["spaces", "mru-spaces", "mission control"],
+    "riskLevel": "safe",
+    "operations": [
+      {
+        "domain": "com.apple.dock",
+        "key": "mru-spaces",
+        "valueType": "bool",
+        "onValue": false,
+        "offValue": true
+      }
+    ],
+    "restartServices": ["Dock"]
+  },
+  {
+    "id": "window.expose-group-apps",
+    "name": "Group Windows by App in Mission Control",
+    "description": "Cluster windows belonging to the same application in Mission Control.",
+    "category": "Window & Mission Control",
+    "keywords": ["mission control", "expose-group-apps", "group"],
+    "riskLevel": "safe",
+    "operations": [
+      {
+        "domain": "com.apple.dock",
+        "key": "expose-group-apps",
+        "valueType": "bool",
+        "onValue": true
+      }
+    ],
+    "restartServices": ["Dock"]
+  },
+  {
+    "id": "window.separate-display-spaces",
+    "name": "Displays Have Separate Spaces",
+    "description": "Allow each external monitor to switch Spaces independently.",
+    "category": "Window & Mission Control",
+    "keywords": ["spaces", "spans-displays", "monitor", "display"],
+    "riskLevel": "moderate",
+    "osNote": "Requires logging out or restarting WindowServer to take full effect.",
+    "operations": [
+      {
+        "domain": "com.apple.spaces",
+        "key": "spans-displays",
+        "valueType": "bool",
+        "onValue": false,
+        "offValue": true
+      }
+    ],
+    "restartServices": ["Dock"]
+  },
+  {
+    "id": "window.tiled-margins",
+    "name": "Remove Tiled Window Margins",
+    "description": "Disable the gap around Sequoia/Tahoe native tiled windows.",
+    "category": "Window & Mission Control",
+    "keywords": ["tiling", "EnableTiledWindowMargins", "windowmanager", "gap"],
+    "minOS": { "major": 15, "minor": 0, "patch": 0 },
+    "riskLevel": "safe",
+    "operations": [
+      {
+        "domain": "com.apple.WindowManager",
+        "key": "EnableTiledWindowMargins",
+        "valueType": "bool",
+        "onValue": false,
+        "offValue": true
+      }
+    ],
+    "restartServices": ["WindowManager"]
+  },
+  {
+    "id": "window.spring-loading",
+    "name": "Spring-Loaded Dock & Finder Folders",
+    "description": "Open folders automatically when hovering with dragged items.",
+    "category": "Window & Mission Control",
+    "keywords": ["springing", "drag", "folder"],
+    "riskLevel": "safe",
+    "operations": [
+      {
+        "domain": "NSGlobalDomain",
+        "key": "com.apple.springing.enabled",
+        "valueType": "bool",
+        "onValue": true
+      }
+    ]
+  },
+
+  {
+    "id": "screenshots.disable-shadow",
+    "name": "Disable Window Screenshot Shadow",
+    "description": "Capture clean window screenshots without drop shadows.",
+    "category": "Screenshots",
+    "keywords": ["screenshot", "disable-shadow", "shadow"],
+    "riskLevel": "safe",
+    "operations": [
+      {
+        "domain": "com.apple.screencapture",
+        "key": "disable-shadow",
+        "valueType": "bool",
+        "onValue": true
+      }
+    ],
+    "restartServices": ["SystemUIServer"]
+  },
+  {
+    "id": "screenshots.format",
+    "name": "Screenshot Image Format",
+    "description": "Choose the file format for saved screenshots.",
+    "category": "Screenshots",
+    "keywords": ["screenshot", "type", "png", "jpg", "webp"],
+    "riskLevel": "safe",
+    "parameters": [
+      {
+        "id": "format",
+        "label": "Format",
+        "control": {
+          "kind": "picker",
+          "options": [
+            { "label": "PNG", "value": "png" },
+            { "label": "JPEG", "value": "jpg" },
+            { "label": "WebP", "value": "webp" },
+            { "label": "TIFF", "value": "tiff" },
+            { "label": "PDF", "value": "pdf" }
+          ]
+        },
+        "defaultValue": "png"
+      }
+    ],
+    "operations": [
+      {
+        "domain": "com.apple.screencapture",
+        "key": "type",
+        "valueType": "string",
+        "onValue": "png",
+        "parameterID": "format"
+      }
+    ],
+    "restartServices": ["SystemUIServer"]
+  },
+  {
+    "id": "screenshots.hide-thumbnail",
+    "name": "Disable Floating Screenshot Thumbnail",
+    "description": "Save screenshots immediately instead of showing the bottom-right preview.",
+    "category": "Screenshots",
+    "keywords": ["screenshot", "show-thumbnail", "thumbnail", "instant"],
+    "riskLevel": "safe",
+    "operations": [
+      {
+        "domain": "com.apple.screencapture",
+        "key": "show-thumbnail",
+        "valueType": "bool",
+        "onValue": false,
+        "offValue": true
+      }
+    ],
+    "restartServices": ["SystemUIServer"]
+  },
+  {
+    "id": "screenshots.omit-date",
+    "name": "Omit Date in Screenshot Filenames",
+    "description": "Remove the timestamp from default screenshot filenames.",
+    "category": "Screenshots",
+    "keywords": ["screenshot", "include-date", "filename"],
+    "riskLevel": "safe",
+    "operations": [
+      {
+        "domain": "com.apple.screencapture",
+        "key": "include-date",
+        "valueType": "bool",
+        "onValue": false,
+        "offValue": true
+      }
+    ],
+    "restartServices": ["SystemUIServer"]
+  },
+  {
+    "id": "screenshots.custom-prefix",
+    "name": "Short Screenshot Filename Prefix",
+    "description": "Use \"Shot\" instead of \"Screenshot\" as the default filename prefix.",
+    "category": "Screenshots",
+    "keywords": ["screenshot", "name", "prefix"],
+    "riskLevel": "safe",
+    "operations": [
+      {
+        "domain": "com.apple.screencapture",
+        "key": "name",
+        "valueType": "string",
+        "onValue": "Shot"
+      }
+    ],
+    "restartServices": ["SystemUIServer"]
+  },
+
+  {
+    "id": "keyboard.disable-press-and-hold",
+    "name": "Enable Key Repeat (Disable Accent Popup)",
+    "description": "Repeat held keys instead of showing the accent character picker.",
+    "category": "Keyboard & Input",
+    "keywords": ["keyboard", "ApplePressAndHoldEnabled", "repeat", "vim"],
+    "riskLevel": "safe",
+    "operations": [
+      {
+        "domain": "NSGlobalDomain",
+        "key": "ApplePressAndHoldEnabled",
+        "valueType": "bool",
+        "onValue": false,
+        "offValue": true
+      }
+    ]
+  },
+  {
+    "id": "keyboard.key-repeat-rate",
+    "name": "Key Repeat Rate",
+    "description": "Set how fast keys repeat when held down (lower is faster).",
+    "category": "Keyboard & Input",
+    "keywords": ["keyboard", "KeyRepeat", "speed"],
+    "riskLevel": "safe",
+    "parameters": [
+      {
+        "id": "rate",
+        "label": "Interval",
+        "control": { "kind": "stepper", "min": 1, "max": 6, "step": 1, "unit": null },
+        "defaultValue": 2
+      }
+    ],
+    "operations": [
+      {
+        "domain": "NSGlobalDomain",
+        "key": "KeyRepeat",
+        "valueType": "int",
+        "onValue": 2,
+        "parameterID": "rate"
+      }
+    ]
+  },
+  {
+    "id": "keyboard.initial-repeat-delay",
+    "name": "Initial Key Repeat Delay",
+    "description": "Set delay before key repeat starts (lower is faster).",
+    "category": "Keyboard & Input",
+    "keywords": ["keyboard", "InitialKeyRepeat", "delay"],
+    "riskLevel": "safe",
+    "parameters": [
+      {
+        "id": "delay",
+        "label": "Delay",
+        "control": { "kind": "stepper", "min": 10, "max": 68, "step": 5, "unit": null },
+        "defaultValue": 15
+      }
+    ],
+    "operations": [
+      {
+        "domain": "NSGlobalDomain",
+        "key": "InitialKeyRepeat",
+        "valueType": "int",
+        "onValue": 15,
+        "parameterID": "delay"
+      }
+    ]
+  },
+  {
+    "id": "keyboard.full-keyboard-access",
+    "name": "Tab Navigation for All Controls",
+    "description": "Allow Tab to focus buttons, checkboxes, and dialogs everywhere.",
+    "category": "Keyboard & Input",
+    "keywords": ["keyboard", "AppleKeyboardUIMode", "tab", "focus"],
+    "riskLevel": "safe",
+    "operations": [
+      {
+        "domain": "NSGlobalDomain",
+        "key": "AppleKeyboardUIMode",
+        "valueType": "int",
+        "onValue": 2
+      }
+    ]
+  },
+  {
+    "id": "keyboard.disable-auto-cap",
+    "name": "Disable Auto-Capitalization",
+    "description": "Stop macOS from automatically capitalizing words.",
+    "category": "Keyboard & Input",
+    "keywords": ["keyboard", "NSAutomaticCapitalizationEnabled", "autocap"],
+    "riskLevel": "safe",
+    "operations": [
+      {
+        "domain": "NSGlobalDomain",
+        "key": "NSAutomaticCapitalizationEnabled",
+        "valueType": "bool",
+        "onValue": false,
+        "offValue": true
+      }
+    ]
+  },
+  {
+    "id": "keyboard.disable-smart-quotes",
+    "name": "Disable Smart Quotes",
+    "description": "Keep straight quotes instead of typographic curly quotes.",
+    "category": "Keyboard & Input",
+    "keywords": ["keyboard", "NSAutomaticQuoteSubstitutionEnabled", "quotes"],
+    "riskLevel": "safe",
+    "operations": [
+      {
+        "domain": "NSGlobalDomain",
+        "key": "NSAutomaticQuoteSubstitutionEnabled",
+        "valueType": "bool",
+        "onValue": false,
+        "offValue": true
+      }
+    ]
+  },
+  {
+    "id": "keyboard.disable-smart-dashes",
+    "name": "Disable Smart Dashes",
+    "description": "Prevent double hyphens (--) from turning into em-dashes.",
+    "category": "Keyboard & Input",
+    "keywords": ["keyboard", "NSAutomaticDashSubstitutionEnabled", "dashes"],
+    "riskLevel": "safe",
+    "operations": [
+      {
+        "domain": "NSGlobalDomain",
+        "key": "NSAutomaticDashSubstitutionEnabled",
+        "valueType": "bool",
+        "onValue": false,
+        "offValue": true
+      }
+    ]
+  },
+
+  {
+    "id": "trackpad.tap-to-click",
+    "name": "Tap to Click",
+    "description": "Enable tap-to-click on built-in and Bluetooth trackpads.",
+    "category": "Trackpad & Mouse",
+    "keywords": ["trackpad", "Clicking", "tap"],
+    "riskLevel": "safe",
+    "operations": [
+      {
+        "domain": "com.apple.AppleMultitouchTrackpad",
+        "key": "Clicking",
+        "valueType": "bool",
+        "onValue": true
+      },
+      {
+        "domain": "com.apple.driver.AppleBluetoothMultitouch.trackpad",
+        "key": "Clicking",
+        "valueType": "bool",
+        "onValue": true
+      }
+    ]
+  },
+  {
+    "id": "trackpad.three-finger-drag",
+    "name": "Three-Finger Drag",
+    "description": "Drag windows and selections using three fingers on the trackpad.",
+    "category": "Trackpad & Mouse",
+    "keywords": ["trackpad", "TrackpadThreeFingerDrag", "drag"],
+    "riskLevel": "safe",
+    "operations": [
+      {
+        "domain": "com.apple.AppleMultitouchTrackpad",
+        "key": "TrackpadThreeFingerDrag",
+        "valueType": "bool",
+        "onValue": true
+      },
+      {
+        "domain": "com.apple.driver.AppleBluetoothMultitouch.trackpad",
+        "key": "TrackpadThreeFingerDrag",
+        "valueType": "bool",
+        "onValue": true
+      }
+    ]
+  },
+  {
+    "id": "mouse.disable-natural-scroll",
+    "name": "Traditional Scroll Direction",
+    "description": "Disable Natural Scrolling so wheel/trackpad scrolling moves downward.",
+    "category": "Trackpad & Mouse",
+    "keywords": ["mouse", "trackpad", "com.apple.swipescrolldirection", "scroll"],
+    "riskLevel": "safe",
+    "operations": [
+      {
+        "domain": "NSGlobalDomain",
+        "key": "com.apple.swipescrolldirection",
+        "valueType": "bool",
+        "onValue": false,
+        "offValue": true
+      }
+    ]
+  },
+  {
+    "id": "trackpad.silent-click",
+    "name": "Quiet Force Touch Click",
+    "description": "Set trackpad click actuation strength to silent.",
+    "category": "Trackpad & Mouse",
+    "keywords": ["trackpad", "ActuationStrength", "silent"],
+    "riskLevel": "safe",
+    "operations": [
+      {
+        "domain": "com.apple.AppleMultitouchTrackpad",
+        "key": "ActuationStrength",
+        "valueType": "int",
+        "onValue": 0
+      }
+    ]
+  },
+  {
+    "id": "mouse.linear-tracking",
+    "name": "Disable Mouse Pointer Acceleration",
+    "description": "Use linear mouse movement without macOS pointer acceleration.",
+    "category": "Trackpad & Mouse",
+    "keywords": ["mouse", "com.apple.mouse.linear", "acceleration", "gaming"],
+    "riskLevel": "safe",
+    "operations": [
+      {
+        "domain": "NSGlobalDomain",
+        "key": "com.apple.mouse.linear",
+        "valueType": "bool",
+        "onValue": true
+      }
+    ]
+  },
+
+  {
+    "id": "menubar.clock-seconds",
+    "name": "Show Seconds in Menu Bar Clock",
+    "description": "Display seconds in the top-right menu bar clock.",
+    "category": "Menu Bar & Desktop",
+    "keywords": ["menubar", "clock", "ShowSeconds", "seconds"],
+    "riskLevel": "safe",
+    "operations": [
+      {
+        "domain": "com.apple.menuextra.clock",
+        "key": "ShowSeconds",
+        "valueType": "bool",
+        "onValue": true
+      }
+    ],
+    "restartServices": ["SystemUIServer"]
+  },
+  {
+    "id": "menubar.clock-24h",
+    "name": "Use 24-Hour Menu Bar Clock",
+    "description": "Format the menu bar clock in 24-hour time.",
+    "category": "Menu Bar & Desktop",
+    "keywords": ["menubar", "clock", "Show24Hour", "24h"],
+    "riskLevel": "safe",
+    "operations": [
+      {
+        "domain": "com.apple.menuextra.clock",
+        "key": "Show24Hour",
+        "valueType": "bool",
+        "onValue": true
+      }
+    ],
+    "restartServices": ["SystemUIServer"]
+  },
+  {
+    "id": "desktop.hide-all-icons",
+    "name": "Hide All Desktop Icons",
+    "description": "Hide files and drives on the Desktop for a clean or presentation-ready view.",
+    "category": "Menu Bar & Desktop",
+    "keywords": ["desktop", "CreateDesktop", "hide", "presentation"],
+    "riskLevel": "safe",
+    "operations": [
+      {
+        "domain": "com.apple.finder",
+        "key": "CreateDesktop",
+        "valueType": "bool",
+        "onValue": false,
+        "offValue": true
+      }
+    ],
+    "restartServices": ["Finder"]
+  },
+  {
+    "id": "desktop.hide-external-drives",
+    "name": "Hide External Drives on Desktop",
+    "description": "Stop showing mounted external drives on the Desktop.",
+    "category": "Menu Bar & Desktop",
+    "keywords": ["desktop", "ShowExternalHardDrivesOnDesktop", "drives"],
+    "riskLevel": "safe",
+    "operations": [
+      {
+        "domain": "com.apple.finder",
+        "key": "ShowExternalHardDrivesOnDesktop",
+        "valueType": "bool",
+        "onValue": false,
+        "offValue": true
+      }
+    ],
+    "restartServices": ["Finder"]
+  },
+  {
+    "id": "desktop.hide-removable-media",
+    "name": "Hide Removable Media on Desktop",
+    "description": "Hide CDs, DVDs, and disk images from the Desktop.",
+    "category": "Menu Bar & Desktop",
+    "keywords": ["desktop", "ShowRemovableMediaOnDesktop", "dmg"],
+    "riskLevel": "safe",
+    "operations": [
+      {
+        "domain": "com.apple.finder",
+        "key": "ShowRemovableMediaOnDesktop",
+        "valueType": "bool",
+        "onValue": false,
+        "offValue": true
+      }
+    ],
+    "restartServices": ["Finder"]
+  },
+
+  {
+    "id": "animations.instant-window-resize",
+    "name": "Instant Sheet & Resize Animation",
+    "description": "Speed up Cocoa sheet and window resize transitions.",
+    "category": "Animations & Performance",
+    "keywords": ["animations", "NSWindowResizeTime", "speed", "resize"],
+    "riskLevel": "safe",
+    "operations": [
+      {
+        "domain": "NSGlobalDomain",
+        "key": "NSWindowResizeTime",
+        "valueType": "double",
+        "onValue": 0.001
+      }
+    ]
+  },
+  {
+    "id": "animations.disable-window-open",
+    "name": "Disable Window Open/Close Animations",
+    "description": "Open and close app windows without zoom animations.",
+    "category": "Animations & Performance",
+    "keywords": ["animations", "NSAutomaticWindowAnimationsEnabled", "window"],
+    "riskLevel": "safe",
+    "operations": [
+      {
+        "domain": "NSGlobalDomain",
+        "key": "NSAutomaticWindowAnimationsEnabled",
+        "valueType": "bool",
+        "onValue": false,
+        "offValue": true
+      }
+    ]
+  },
+  {
+    "id": "animations.disable-dock-bounce",
+    "name": "Disable Dock Launch Bounce",
+    "description": "Stop Dock icons from bouncing when launching applications.",
+    "category": "Animations & Performance",
+    "keywords": ["animations", "launchanim", "dock", "bounce"],
+    "riskLevel": "safe",
+    "operations": [
+      {
+        "domain": "com.apple.dock",
+        "key": "launchanim",
+        "valueType": "bool",
+        "onValue": false,
+        "offValue": true
+      }
+    ],
+    "restartServices": ["Dock"]
+  },
+  {
+    "id": "animations.disable-quicklook-anim",
+    "name": "Instant Quick Look Preview",
+    "description": "Remove the zoom animation when pressing Space on a file in Finder.",
+    "category": "Animations & Performance",
+    "keywords": ["animations", "QLPanelAnimationDuration", "quicklook"],
+    "riskLevel": "safe",
+    "operations": [
+      {
+        "domain": "com.apple.finder",
+        "key": "QLPanelAnimationDuration",
+        "valueType": "double",
+        "onValue": 0.0
+      }
+    ],
+    "restartServices": ["Finder"]
+  },
+  {
+    "id": "animations.reduce-motion",
+    "name": "Reduce System Motion",
+    "description": "Replace sliding Space transitions and parallax motion with subtle crossfades.",
+    "category": "Animations & Performance",
+    "keywords": ["animations", "reduceMotion", "accessibility", "spaces"],
+    "riskLevel": "moderate",
+    "operations": [
+      {
+        "domain": "com.apple.universalaccess",
+        "key": "reduceMotion",
+        "valueType": "bool",
+        "onValue": true
+      }
+    ]
+  },
+
+  {
+    "id": "dev.expand-save-panel",
+    "name": "Expand Save Panel by Default",
+    "description": "Always show the full folder browser in macOS Save dialogs.",
+    "category": "Developer & Privacy",
+    "keywords": ["developer", "NSNavPanelExpandedStateForSaveMode", "save"],
+    "riskLevel": "safe",
+    "operations": [
+      {
+        "domain": "NSGlobalDomain",
+        "key": "NSNavPanelExpandedStateForSaveMode",
+        "valueType": "bool",
+        "onValue": true
+      },
+      {
+        "domain": "NSGlobalDomain",
+        "key": "NSNavPanelExpandedStateForSaveMode2",
+        "valueType": "bool",
+        "onValue": true
+      }
+    ]
+  },
+  {
+    "id": "dev.expand-print-panel",
+    "name": "Expand Print Panel by Default",
+    "description": "Always show full print options in macOS Print dialogs.",
+    "category": "Developer & Privacy",
+    "keywords": ["developer", "PMPrintingExpandedStateForPrint", "print"],
+    "riskLevel": "safe",
+    "operations": [
+      {
+        "domain": "NSGlobalDomain",
+        "key": "PMPrintingExpandedStateForPrint",
+        "valueType": "bool",
+        "onValue": true
+      },
+      {
+        "domain": "NSGlobalDomain",
+        "key": "PMPrintingExpandedStateForPrint2",
+        "valueType": "bool",
+        "onValue": true
+      }
+    ]
+  },
+  {
+    "id": "dev.save-local-by-default",
+    "name": "Save to Local Disk Instead of iCloud",
+    "description": "Default Save panels to local storage rather than iCloud Drive.",
+    "category": "Developer & Privacy",
+    "keywords": ["developer", "NSDocumentSaveNewDocumentsToCloud", "icloud"],
+    "riskLevel": "safe",
+    "operations": [
+      {
+        "domain": "NSGlobalDomain",
+        "key": "NSDocumentSaveNewDocumentsToCloud",
+        "valueType": "bool",
+        "onValue": false,
+        "offValue": true
+      }
+    ]
+  },
+  {
+    "id": "dev.disable-crash-dialog",
+    "name": "Disable Crash Reporter Dialog",
+    "description": "Suppress the Crash Reporter popup when background tools crash.",
+    "category": "Developer & Privacy",
+    "keywords": ["developer", "CrashReporter", "DialogType", "crash"],
+    "riskLevel": "moderate",
+    "operations": [
+      {
+        "domain": "com.apple.CrashReporter",
+        "key": "DialogType",
+        "valueType": "string",
+        "onValue": "none"
+      }
+    ]
+  },
+  {
+    "id": "dev.activity-monitor-1s",
+    "name": "1-Second Activity Monitor Refresh",
+    "description": "Update CPU and memory graphs in Activity Monitor every second.",
+    "category": "Developer & Privacy",
+    "keywords": ["developer", "ActivityMonitor", "UpdatePeriod"],
+    "riskLevel": "safe",
+    "operations": [
+      {
+        "domain": "com.apple.ActivityMonitor",
+        "key": "UpdatePeriod",
+        "valueType": "int",
+        "onValue": 1
+      }
+    ]
+  }
+]

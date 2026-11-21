@@ -15,6 +15,9 @@ let package = Package(
     targets: [
         .target(
             name: "DialCore",
+            resources: [
+                .process("Resources")
+            ],
             linkerSettings: [
                 .linkedLibrary("z")
             ]
