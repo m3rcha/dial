@@ -7,10 +7,12 @@ struct ContentView: View {
     var body: some View {
         NavigationSplitView {
             SidebarView(appState: appState)
-                .navigationSplitViewColumnWidth(min: 200, ideal: 230, max: 280)
+                .navigationSplitViewColumnWidth(min: 210, ideal: 230, max: 280)
         } detail: {
             detailView
+                .frame(maxWidth: .infinity, maxHeight: .infinity)
         }
+        .navigationSplitViewStyle(.balanced)
         .searchable(
             text: $appState.searchText,
             placement: .toolbar,

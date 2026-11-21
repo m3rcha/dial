@@ -16,6 +16,13 @@ mkdir -p "$APP_BUNDLE/Contents/MacOS" "$APP_BUNDLE/Contents/Resources"
 
 cp "$BIN_DIR/DialApp" "$APP_BUNDLE/Contents/MacOS/DialApp"
 
+SDK_VERSION="$(xcrun --show-sdk-version 2>/dev/null || echo "26.0")"
+if command -v vtool >/dev/null 2>&1; then
+    vtool -set-build-version macos 15.0 "$SDK_VERSION" -replace \
+        -output "$APP_BUNDLE/Contents/MacOS/DialApp" \
+        "$APP_BUNDLE/Contents/MacOS/DialApp"
+fi
+
 if [ -d "$BIN_DIR/Dial_DialCore.bundle" ]; then
     cp -R "$BIN_DIR/Dial_DialCore.bundle" "$APP_BUNDLE/Contents/Resources/"
     cp -R "$BIN_DIR/Dial_DialCore.bundle" "$APP_BUNDLE/Contents/MacOS/"
