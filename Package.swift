@@ -10,6 +10,10 @@ let package = Package(
         .library(
             name: "DialCore",
             targets: ["DialCore"]
+        ),
+        .executable(
+            name: "DialApp",
+            targets: ["DialApp"]
         )
     ],
     targets: [
@@ -21,6 +25,10 @@ let package = Package(
             linkerSettings: [
                 .linkedLibrary("z")
             ]
+        ),
+        .executableTarget(
+            name: "DialApp",
+            dependencies: ["DialCore"]
         ),
         .testTarget(
             name: "DialCoreTests",
